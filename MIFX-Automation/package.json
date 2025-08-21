@@ -1,0 +1,19 @@
+{
+  "name": "mifx-playwright-tests",
+  "version": "1.0.0",
+  "description": "Playwright test automation framework for MIFX platform",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "test:report": "npx playwright show-report",
+    "test:ui": "npx playwright test --ui",
+    "install:browsers": "npx playwright install"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.40.0",
+    "dotenv": "^16.3.1"
+  }
+}
