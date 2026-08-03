@@ -1,0 +1,36 @@
+{
+  "name": "remora-api-bdd",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API BDD automation for Remora, powered by Playwright and Cucumber",
+  "scripts": {
+    "test": "npm run typecheck && npm run prepare:reports && cucumber-js",
+    "test:smoke": "npm run typecheck && npm run prepare:reports && cucumber-js --tags @smoke",
+    "test:regression": "npm run typecheck && npm run prepare:reports && cucumber-js --tags @regression",
+    "test:uat": "cross-env TARGET_ENV=uat npm run test",
+    "test:uat:report": "npm run test:uat && npm run report",
+    "test:dry": "cross-env CUCUMBER_REPORTS=false TARGET_ENV=local BASE_URL=https://example.test API_EMAIL=dry-run@example.test API_PASSWORD=dry-run-password TARGET_COMPANY_ID=dry-run-company TARGET_COMPANY_NAME=Dry-Run-Company cucumber-js --dry-run",
+    "test:unit": "node --test -r ts-node/register tests/contracts.test.ts",
+    "test:mock": "npm run typecheck && node scripts/run-mock-suite.cjs",
+    "typecheck": "tsc --noEmit",
+    "verify": "npm run typecheck && npm run test:unit && npm run test:dry && node scripts/run-mock-suite.cjs",
+    "report": "npm run report:build && node scripts/serve-report.cjs --open",
+    "report:build": "node scripts/generate-report.cjs",
+    "report:serve": "node scripts/serve-report.cjs --open",
+    "clean:reports": "node scripts/clean-reports.cjs",
+    "prepare:reports": "node scripts/prepare-reports.cjs"
+  },
+  "engines": {
+    "node": ">=20 <24"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.3.0",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^22.15.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.5.0",
+    "multiple-cucumber-html-reporter": "^3.9.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
